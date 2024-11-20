@@ -33,7 +33,8 @@ def main():
     if query:
         # Check if query is related to the library
         if not is_library_related(query):
-            st.warning("Sorry, I can only assist with library-related queries.")
+            st.warning("Sorry, I cannot provide summaries, resumes, or explain the content of books. "
+                       "Please ask about book titles, authors, or recommendations.")
             return
 
         # Check for cached answer if enabled
