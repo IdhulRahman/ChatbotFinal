@@ -71,13 +71,13 @@ def is_library_related(query):
 
     restricted_keywords = [
         # English
-        "summary", "resume", "explain", "content of the book", 
+        "summary", "resume", "explain", "content of the book", "how", 
         # Indonesian
-        "ringkasan", "resume", "jelaskan", "isi buku", 
+        "ringkasan", "resume", "jelaskan", "isi buku", "bagaimana", "isi", 
         # Spanish
-        "resumen", "explicar", "contenido del libro", 
+        "resumen", "explicar", "contenido del libro", "cómo", 
         # French
-        "résumé", "expliquer", "contenu du livre"
+        "résumé", "expliquer", "contenu du livre", "comment"
     ]
 
     query_lower = query.lower()
