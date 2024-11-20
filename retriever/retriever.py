@@ -50,26 +50,43 @@ def search_vector_store(query, vector_store_path, k=3, return_as_list=False, mod
 
 def is_library_related(query):
     """
-    Check if a query is related to the library domain.
+    Check if a query is related to the library domain and does not contain restricted topics.
     :param query: User query.
-    :return: True if related, False otherwise.
+    :return: True if related and allowed, False otherwise.
     """
     library_keywords = [
-    # English
-    "book", "author", "publisher", "ISBN", "publication", 
-    "library", "recommend", "rating", "pages", "genre", 
-    # Indonesian
-    "buku", "penulis", "penerbit", "ISBN", "publikasi", 
-    "perpustakaan", "rekomendasi", "penilaian", "halaman", "genre",   
-    # Spanish
-    "libro", "autor", "editor", "ISBN", "publicación", 
-    "biblioteca", "recomendar", "calificación", "páginas", "género",
-    # French
-    "livre", "auteur", "éditeur", "ISBN", "publication", 
-    "bibliothèque", "recommander", "évaluation", "pages", "genre"
+        # English
+        "book", "author", "publisher", "ISBN", "publication", 
+        "library", "recommend", "rating", "pages", "genre", 
+        # Indonesian
+        "buku", "penulis", "penerbit", "ISBN", "publikasi", 
+        "perpustakaan", "rekomendasi", "penilaian", "halaman", "genre",   
+        # Spanish
+        "libro", "autor", "editor", "ISBN", "publicación", 
+        "biblioteca", "recomendar", "calificación", "páginas", "género",
+        # French
+        "livre", "auteur", "éditeur", "ISBN", "publication", 
+        "bibliothèque", "recommander", "évaluation", "pages", "genre"
+    ]
+
+    restricted_keywords = [
+        # English
+        "summary", "resume", "explain", "content of the book", 
+        # Indonesian
+        "ringkasan", "resume", "jelaskan", "isi buku", 
+        # Spanish
+        "resumen", "explicar", "contenido del libro", 
+        # French
+        "résumé", "expliquer", "contenu du livre"
     ]
 
     query_lower = query.lower()
+
+    # Check if query contains any restricted keywords
+    if any(keyword in query_lower for keyword in restricted_keywords):
+        return False
+
+    # Check if query contains at least one library-related keyword
     return any(keyword in query_lower for keyword in library_keywords)
 
 def extract_number_from_query(query):
